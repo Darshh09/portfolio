@@ -18,13 +18,17 @@ import {
   Tag,
   Share,
   Bookmark,
+  BookmarkSimple,
   TwitterLogo,
   LinkedinLogo,
   FacebookLogo
 } from 'phosphor-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { blogs, formatViews, formatDate } from '@/data/blogs';
-import BlogCard from '@/components/ui/blog-card';
+import BlogCardWithStats from '@/components/ui/BlogCardWithStats';
+import { initializeAnalytics } from '@/data/blogAnalytics';
+import { useBlogAnalytics } from '@/hooks/useBlogAnalytics';
+import { useToast } from '@/hooks/use-toast';
 
 const BlogDetail = () => {
   const navigate = useNavigate();
@@ -32,8 +36,20 @@ const BlogDetail = () => {
   const [blog, setBlog] = useState(blogs.find(b => b.id === id));
   const [relatedBlogs, setRelatedBlogs] = useState<typeof blogs>([]);
 
+  // Use the custom hook for analytics
+  const { stats: blogStats, isBookmarked: isBookmarkedState, toggleBookmark: toggleBookmarkHook, trackView } = useBlogAnalytics(id || '');
+  const { toast } = useToast();
+
+    useEffect(() => {
+    // Initialize analytics on component mount
+    initializeAnalytics();
+  }, []);
+
   useEffect(() => {
-    if (blog) {
+    if (blog && id) {
+      // Track blog view
+      trackView();
+
       // Find related blogs (same category or tags)
       const related = blogs
         .filter(b => b.id !== blog.id && (b.category === blog.category || b.tags.some(tag => blog.tags.includes(tag))))
@@ -45,7 +61,7 @@ const BlogDetail = () => {
         Prism.highlightAll();
       }, 100);
     }
-  }, [blog]);
+  }, [blog, id, trackView]);
 
   if (!blog) {
     return (
@@ -65,6 +81,27 @@ const BlogDetail = () => {
 
   const shareUrl = window.location.href;
   const shareText = `Check out this article: ${blog.title}`;
+
+  const handleBookmarkToggle = () => {
+    if (id) {
+      const wasAdded = toggleBookmarkHook();
+
+      // Show toast notification
+      if (wasAdded) {
+        toast({
+          title: "Blog Saved! 📚",
+          description: "This blog has been added to your bookmarks.",
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: "Blog Removed! 🗑️",
+          description: "This blog has been removed from your bookmarks.",
+          variant: "default",
+        });
+      }
+    }
+  };
 
   const shareLinks = [
     {
@@ -167,7 +204,7 @@ const BlogDetail = () => {
             </div>
             <div className="flex items-center gap-2">
               <Eye className="w-5 h-5" />
-              <span>{formatViews(blog.views)} views</span>
+              <span>{formatViews(blogStats.totalViews)} views</span>
             </div>
           </motion.div>
 
@@ -210,6 +247,43 @@ const BlogDetail = () => {
             )}
           </motion.div>
 
+          {/* Live Statistics */}
+          <motion.div
+            className="flex flex-wrap items-center gap-6 mb-8 p-4 bg-slate-800/30 rounded-xl border border-slate-700/50 relative overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            {/* Live indicator */}
+            <div className="absolute top-2 right-2 flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-xs text-green-400 font-medium">LIVE</span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-300">
+              <Eye className="w-5 h-5 text-blue-400" />
+              <span className="font-medium">{formatViews(blogStats.totalViews)}</span>
+              <span className="text-sm text-slate-400">total views</span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-300">
+              <Eye className="w-5 h-5 text-green-400" />
+              <span className="font-medium">{formatViews(blogStats.uniqueViews)}</span>
+              <span className="text-sm text-slate-400">unique views</span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-300">
+              <Bookmark className="w-5 h-5 text-purple-400" />
+              <span className="font-medium">{formatViews(blogStats.bookmarks)}</span>
+              <span className="text-sm text-slate-400">bookmarks</span>
+            </div>
+            {blogStats.lastViewed > 0 && (
+              <div className="flex items-center gap-2 text-slate-300">
+                <Clock className="w-5 h-5 text-orange-400" />
+                <span className="text-sm text-slate-400">
+                  Last viewed {new Date(blogStats.lastViewed).toLocaleDateString()}
+                </span>
+              </div>
+            )}
+          </motion.div>
+
           {/* Action Buttons */}
           <motion.div
             className="flex flex-wrap items-center gap-4 mb-12"
@@ -217,9 +291,25 @@ const BlogDetail = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors duration-300">
-              <Bookmark className="w-4 h-4" />
-              Save
+            <button
+              onClick={handleBookmarkToggle}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${
+                isBookmarkedState
+                  ? 'bg-emerald-600 hover:bg-emerald-500 text-white'
+                  : 'bg-blue-600 hover:bg-blue-500 text-white'
+              }`}
+            >
+              {isBookmarkedState ? (
+                <Bookmark className="w-4 h-4 fill-current" />
+              ) : (
+                <BookmarkSimple className="w-4 h-4" />
+              )}
+              {isBookmarkedState ? 'Saved' : 'Save'}
+              {blogStats.bookmarks > 0 && (
+                <span className="ml-1 px-2 py-0.5 bg-white/20 rounded-full text-xs">
+                  {blogStats.bookmarks}
+                </span>
+              )}
             </button>
 
             <div className="flex items-center gap-2">
@@ -300,7 +390,7 @@ const BlogDetail = () => {
             <h2 className="text-2xl font-bold text-white mb-8">Related Articles</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {relatedBlogs.map((relatedBlog) => (
-                <BlogCard
+                <BlogCardWithStats
                   key={relatedBlog.id}
                   blog={relatedBlog}
                   onClick={() => navigate(`/blog/${relatedBlog.id}`)}

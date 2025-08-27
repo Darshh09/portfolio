@@ -47,6 +47,10 @@ export default function BlogCard({ blog, onClick, variant = 'default' }: BlogCar
           ${blog.category === 'web-development' ? 'bg-green-500/20 text-green-400 border border-green-500/30' : ''}
           ${blog.category === 'career' ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30' : ''}
           ${blog.category === 'tutorial' ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30' : ''}
+          ${blog.category === 'seo' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : ''}
+          ${blog.category === 'react' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30' : ''}
+          ${blog.category === 'css' ? 'bg-pink-500/20 text-pink-400 border border-pink-500/30' : ''}
+          ${blog.category === 'typescript' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : ''}
         `}>
           {blog.category.replace('-', ' ').toUpperCase()}
         </span>
@@ -80,7 +84,7 @@ export default function BlogCard({ blog, onClick, variant = 'default' }: BlogCar
         </div>
         <div className="flex items-center gap-1">
           <Calendar className="w-4 h-4" />
-          <span>{formatDate(blog.publishedDate)}</span>
+          <span>{formatDate(blog.date)}</span>
         </div>
         {!isCompact && (
           <div className="flex items-center gap-1">
