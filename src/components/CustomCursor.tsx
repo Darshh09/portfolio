@@ -28,7 +28,7 @@ const CustomCursor = () => {
         target.tagName === 'A' ||
         target.tagName === 'BUTTON' ||
         target.closest('a') ||
-        target.closest('button') ||qaseasdasdasd
+        target.closest('button') ||
         target.closest('.glass-card') ||
         target.closest('.project-card') ||
         target.closest('.experience-item') ||
