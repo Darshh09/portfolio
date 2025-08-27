@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
 import Index from './pages/index';
 import Blog from './pages/Blog';
 import BlogDetail from './pages/BlogDetail';
@@ -6,6 +7,12 @@ import BlogAnalyticsDashboard from './components/BlogAnalyticsDashboard';
 import NotFound from './pages/NotFound';
 
 function App() {
+  // Debug routing
+  useEffect(() => {
+    console.log('App component mounted');
+    console.log('Current location:', window.location.pathname);
+  }, []);
+
   return (
     <Router>
       <Routes>

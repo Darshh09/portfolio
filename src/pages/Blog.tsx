@@ -28,6 +28,14 @@ const Blog = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredBlogs, setFilteredBlogs] = useState(blogs);
 
+  // Debug logging
+  useEffect(() => {
+    console.log('Blog component mounted');
+    console.log('Current category:', category);
+    console.log('Active tab:', activeTab);
+    console.log('Total blogs:', blogs.length);
+  }, [category, activeTab]);
+
   const tabs = [
     { id: 'all', label: 'All Posts', count: blogs.length },
     { id: 'featured', label: 'Featured', count: getFeaturedBlogs().length },
@@ -93,6 +101,8 @@ const Blog = () => {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 }
   };
+
+  console.log('Blog component rendering...');
 
   return (
     <div className="min-h-screen bg-slate-900">

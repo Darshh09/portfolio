@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Routing Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-link { display: block; margin: 10px 0; padding: 10px; background: #f0f0f0; text-decoration: none; }
+        .test-link:hover { background: #e0e0e0; }
+    </style>
+</head>
+<body>
+    <h1>Routing Debug Test</h1>
+    
+    <h2>Test Navigation</h2>
+    <a href="/" class="test-link">Home (/)</a>
+    <a href="/blog" class="test-link">Blog (/blog)</a>
+    <a href="/blog/analytics" class="test-link">Analytics (/blog/analytics)</a>
+    <a href="/blog/seo-optimization-react-vite-performance" class="test-link">Blog Detail</a>
+    
+    <h2>Current Location</h2>
+    <div id="current-location"></div>
+    
+    <h2>Test Results</h2>
+    <div id="test-results"></div>
+    
+    <script>
+        // Show current location
+        document.getElementById('current-location').textContent = window.location.pathname;
+        
+        // Test navigation
+        const testLinks = document.querySelectorAll('.test-link');
+        testLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const href = link.getAttribute('href');
+                console.log('Testing navigation to:', href);
+                
+                // Try to navigate
+                try {
+                    window.history.pushState({}, '', href);
+                    document.getElementById('test-results').innerHTML += `<p>✅ Successfully navigated to: ${href}</p>`;
+                } catch (error) {
+                    document.getElementById('test-results').innerHTML += `<p>❌ Failed to navigate to: ${href} - ${error.message}</p>`;
+                }
+            });
+        });
+        
+        // Log page load
+        console.log('Debug routing page loaded');
+        console.log('Current pathname:', window.location.pathname);
+        console.log('Current href:', window.location.href);
+    </script>
+</body>
+</html>
