@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import {
   Eye,
   Bookmark,
-  TrendingUp,
+  TrendUp,
   Calendar,
   ChartLine,
   Users
@@ -28,7 +28,7 @@ const BlogAnalyticsDashboard = () => {
 
     // Calculate total stats
     const viewCounts = JSON.parse(localStorage.getItem('blog_view_counts') || '{}');
-    const totalViewsCount = Object.values(viewCounts).reduce((sum: number, count: any) => sum + (count || 0), 0);
+    const totalViewsCount = Object.values(viewCounts).reduce((sum: number, count: unknown) => sum + (Number(count) || 0), 0) as number;
     setTotalViews(totalViewsCount);
 
     const bookmarks = JSON.parse(localStorage.getItem('blog_bookmarks') || '[]');
@@ -53,13 +53,13 @@ const BlogAnalyticsDashboard = () => {
       color: 'text-purple-400',
       bgColor: 'bg-purple-500/10'
     },
-    {
-      title: 'Popular Blogs',
-      value: popularBlogIds.length.toString(),
-      icon: TrendingUp,
-      color: 'text-green-400',
-      bgColor: 'bg-green-500/10'
-    },
+          {
+        title: 'Popular Blogs',
+        value: popularBlogIds.length.toString(),
+        icon: TrendUp,
+        color: 'text-green-400',
+        bgColor: 'bg-green-500/10'
+      },
     {
       title: 'Your Bookmarks',
       value: bookmarkedBlogIds.length.toString(),
@@ -124,7 +124,7 @@ const BlogAnalyticsDashboard = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-              <TrendingUp className="w-6 h-6 text-green-400" />
+              <TrendUp className="w-6 h-6 text-green-400" />
               Most Popular Blogs
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
