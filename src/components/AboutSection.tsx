@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
@@ -21,6 +21,35 @@ const AboutSection = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  // Debug image loading
+  useEffect(() => {
+    console.log('AboutSection mounted, checking image path...');
+
+    // Test multiple image paths
+    const testPaths = ['/profile-image.jpg', '/myimg.JPG', '/myimg.jpg'];
+
+    testPaths.forEach(path => {
+      const img = new Image();
+      img.onload = () => console.log('✅ Image preload successful:', path);
+      img.onerror = () => console.log('❌ Image preload failed:', path);
+      img.src = path;
+    });
+
+          // Check if image element exists in DOM
+      setTimeout(() => {
+        const imgElement = document.querySelector('img[src="/profile-image.jpg"]') as HTMLImageElement;
+        if (imgElement) {
+          console.log('✅ Image element found in DOM');
+          console.log('Image dimensions:', imgElement.offsetWidth, 'x', imgElement.offsetHeight);
+          console.log('Image computed styles:', window.getComputedStyle(imgElement));
+        } else {
+          console.log('❌ Image element not found in DOM');
+        }
+      }, 1000);
+  }, []);
 
   const skills = [
     { icon: Code, name: 'HTML/CSS', level: 95 },
@@ -110,11 +139,57 @@ const AboutSection = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-full p-1 glow-cyan">
                 <div className="w-full h-full bg-background rounded-full overflow-hidden">
                   {/* Profile image */}
-                  <img
-                    src="/src/assets/myimg.JPG"
+                                                                                          <img
+                    src="/profile-image.jpg"
                     alt="Darshit Shukla"
                     className="w-full h-full object-cover scale-125"
+                    style={{
+                      minHeight: '100%',
+                      minWidth: '100%',
+                      objectFit: 'cover',
+                      border: '2px solid red', // Temporary debugging border
+                      backgroundColor: 'transparent'
+                    }}
+                    onLoad={() => {
+                      console.log('Image loaded successfully from:', '/profile-image.jpg');
+                      setImageLoaded(true);
+                      setImageError(false);
+                    }}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      console.error('Image failed to load from:', target.src);
+                      setImageError(true);
+                      setImageLoaded(false);
+
+                      // Try alternative paths
+                      if (target.src.includes('profile-image.jpg')) {
+                        target.src = '/myimg.JPG'; // Try original
+                      } else if (target.src.includes('myimg.JPG')) {
+                        target.src = '/myimg.jpg'; // Try lowercase
+                      } else {
+                        // If all else fails, hide image and show fallback
+                        target.style.display = 'none';
+                        const fallback = target.nextElementSibling as HTMLElement;
+                        if (fallback) fallback.style.display = 'flex';
+                      }
+                    }}
                   />
+                                                      {/* Fallback content if image fails to load */}
+                  <div
+                    className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center"
+                    style={{ display: imageError ? 'flex' : 'none' }}
+                  >
+                    <div className="text-6xl">👨‍💻</div>
+                    <div className="text-sm text-slate-400 mt-2">Image failed to load</div>
+                  </div>
+
+                  {/* Loading state */}
+                  {!imageLoaded && !imageError && (
+                    <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                      <div className="text-6xl animate-pulse">⏳</div>
+                      <div className="text-sm text-slate-400 mt-2">Loading image...</div>
+                    </div>
+                  )}
                 </div>
               </div>
 
