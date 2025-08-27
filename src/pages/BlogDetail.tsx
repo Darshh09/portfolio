@@ -42,7 +42,10 @@ const BlogDetail = () => {
 
     useEffect(() => {
     // Initialize analytics on component mount
-    initializeAnalytics();
+    const init = async () => {
+      await initializeAnalytics();
+    };
+    init();
   }, []);
 
   useEffect(() => {

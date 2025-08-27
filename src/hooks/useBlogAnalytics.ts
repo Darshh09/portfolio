@@ -44,8 +44,11 @@ export const useBlogAnalytics = (blogId: string) => {
 
   // Initialize
   useEffect(() => {
-    updateStats();
-    checkBookmarkStatus();
+    const init = async () => {
+      await updateStats();
+      checkBookmarkStatus();
+    };
+    init();
   }, [blogId, updateStats, checkBookmarkStatus]);
 
   // Auto-update stats every 30 seconds for real-time feel

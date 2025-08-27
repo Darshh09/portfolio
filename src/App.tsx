@@ -5,6 +5,7 @@ import Blog from './pages/Blog';
 import BlogDetail from './pages/BlogDetail';
 import BlogAnalyticsDashboard from './components/BlogAnalyticsDashboard';
 import NotFound from './pages/NotFound';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   // Debug routing
@@ -14,15 +15,17 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/analytics" element={<BlogAnalyticsDashboard />} />
-        <Route path="/blog/:id" element={<BlogDetail />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
+    <ErrorBoundary>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/analytics" element={<BlogAnalyticsDashboard />} />
+          <Route path="/blog/:id" element={<BlogDetail />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
+    </ErrorBoundary>
   );
 }
 

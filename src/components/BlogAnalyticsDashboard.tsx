@@ -10,12 +10,14 @@ import {
 } from 'phosphor-react';
 import { getPopularBlogs, getBookmarkedBlogs } from '@/data/blogAnalytics';
 import { blogs } from '@/data/blogs';
+import { cloudStorage } from '@/data/cloudStorage';
 
 const BlogAnalyticsDashboard = () => {
   const [popularBlogIds, setPopularBlogIds] = useState<string[]>([]);
   const [bookmarkedBlogIds, setBookmarkedBlogIds] = useState<string[]>([]);
   const [totalViews, setTotalViews] = useState(0);
   const [totalBookmarks, setTotalBookmarks] = useState(0);
+  const [backupStatus, setBackupStatus] = useState({ lastBackup: 0, isOnline: true, hasLocalBackup: false });
 
   useEffect(() => {
     // Get popular blogs
@@ -33,6 +35,10 @@ const BlogAnalyticsDashboard = () => {
 
     const bookmarks = JSON.parse(localStorage.getItem('blog_bookmarks') || '[]');
     setTotalBookmarks(bookmarks.length);
+
+    // Get backup status
+    const status = cloudStorage.getBackupStatus();
+    setBackupStatus(status);
   }, []);
 
   const popularBlogs = popularBlogIds.map(id => blogs.find(b => b.id === id)).filter(Boolean);
@@ -85,6 +91,34 @@ const BlogAnalyticsDashboard = () => {
           <p className="text-slate-400 max-w-2xl mx-auto">
             Real-time insights into your blog performance and reader engagement
           </p>
+
+          {/* Backup Status */}
+          <motion.div
+            className="mt-6 p-4 bg-slate-800/30 rounded-xl border border-slate-700/50"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <div className="flex items-center justify-center gap-4 text-sm">
+              <div className="flex items-center gap-2">
+                <div className={`w-2 h-2 rounded-full ${backupStatus.isOnline ? 'bg-green-400' : 'bg-red-400'}`}></div>
+                <span className="text-slate-300">
+                  {backupStatus.isOnline ? 'Online' : 'Offline'}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className={`w-2 h-2 rounded-full ${backupStatus.hasLocalBackup ? 'bg-blue-400' : 'bg-yellow-400'}`}></div>
+                <span className="text-slate-300">
+                  {backupStatus.hasLocalBackup ? 'Local Backup' : 'No Local Backup'}
+                </span>
+              </div>
+              {backupStatus.lastBackup > 0 && (
+                <div className="text-slate-400">
+                  Last backup: {new Date(backupStatus.lastBackup).toLocaleTimeString()}
+                </div>
+              )}
+            </div>
+          </motion.div>
         </motion.div>
 
         {/* Stats Grid */}
