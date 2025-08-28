@@ -1,6 +1,6 @@
 # Portfolio Website
 
-A modern, responsive portfolio website built with React, TypeScript, and Vite. Features include a beautiful UI, blog system with analytics, and smooth animations.
+A modern, responsive portfolio website built with **Vite + React**, TypeScript, and Tailwind CSS. Features include a beautiful UI, blog system with analytics, and smooth animations.
 
 ## 🚀 Features
 
@@ -10,16 +10,18 @@ A modern, responsive portfolio website built with React, TypeScript, and Vite. F
 - **Responsive**: Mobile-first design that works on all devices
 - **SEO Optimized**: Meta tags, structured data, and performance optimizations
 - **Dark Theme**: Beautiful dark theme with galactic animations
+- **Fast Development**: Vite's lightning-fast HMR and build times
+- **Modern React**: Built with React 18 and latest features
 
 ## 🛠️ Tech Stack
 
 - **Frontend**: React 18 + TypeScript
-- **Build Tool**: Vite
+- **Build Tool**: Vite (Fast, modern build tool)
 - **Styling**: Tailwind CSS
 - **Animations**: Framer Motion + GSAP
-- **Routing**: React Router DOM
+- **Routing**: React Router DOM (Client-side routing)
 - **UI Components**: Radix UI + Custom Components
-- **Deployment**: Vercel
+- **Deployment**: Vercel (Static site hosting)
 
 ## 📦 Installation
 
@@ -86,6 +88,14 @@ src/
 ```
 
 ## 🔧 Configuration
+
+### Why Vite + React?
+
+- **Lightning Fast**: Vite's instant server start and HMR
+- **Modern Build**: ES modules and native browser support
+- **Optimized Output**: Tree-shaking and code splitting
+- **Developer Experience**: Fast refresh and hot module replacement
+- **Production Ready**: Optimized builds for deployment
 
 ### Blog Analytics
 
