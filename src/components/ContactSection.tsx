@@ -41,8 +41,23 @@ const ContactSection = () => {
       ease: 'power2.out'
     });
 
-    // Here you would typically handle form submission
-    console.log('Form submitted:', formData);
+    // Create mailto link with form data
+    const subject = `Portfolio Contact from ${formData.name}`;
+    const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
+    const mailtoLink = `mailto:darshitshukla1777@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Open default email client
+    window.open(mailtoLink);
+
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      message: ''
+    });
+
+    // Show success message (you can add a toast notification here)
+    alert('Email client opened! Please send the message to complete the contact.');
   };
 
   useEffect(() => {
@@ -176,7 +191,7 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Email</p>
-                    <p className="text-foreground">shukladarshit52@gmail.com</p>
+                    <p className="text-foreground">darshitshukla1777@gmail.com</p>
                   </div>
                 </div>
 
@@ -207,32 +222,53 @@ const ContactSection = () => {
               <h3 className="text-2xl font-semibold mb-6">Follow Me</h3>
               <div className="flex space-x-4">
                 <a
-                  href="#"
+                  href="https://github.com/Darshh09"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="social-icon p-4 bg-primary/20 rounded-xl hover:bg-primary/30 hover:glow-cyan transition-all duration-300 transform hover:scale-110"
+                  title="GitHub Profile"
                 >
                   <GithubLogo size={24} className="text-primary" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/in/darshitshukla/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="social-icon p-4 bg-primary/20 rounded-xl hover:bg-primary/30 hover:glow-cyan transition-all duration-300 transform hover:scale-110"
+                  title="LinkedIn Profile"
                 >
                   <LinkedinLogo size={24} className="text-primary" />
-                </a>
-                <a
-                  href="#"
-                  className="social-icon p-4 bg-primary/20 rounded-xl hover:bg-primary/30 hover:glow-cyan transition-all duration-300 transform hover:scale-110"
-                >
-                  <TwitterLogo size={24} className="text-primary" />
                 </a>
               </div>
             </div>
 
-            {/* Availability */}
+            {/* Resume Download */}
             <div className="glass-card p-8 rounded-2xl">
-              <h3 className="text-2xl font-semibold mb-4">Availability</h3>
-              <div className="flex items-center space-x-3">
-                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-muted-foreground">Available for freelance projects</span>
+              <h3 className="text-2xl font-semibold mb-4">Professional Profile</h3>
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-muted-foreground">Available for freelance projects</span>
+                </div>
+
+                <div className="space-y-3">
+                  <a
+                    href="/resume.pdf"
+                    download="Darshit_Resume.pdf"
+                    className="w-full flex items-center justify-center space-x-3 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-medium hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span>Download Resume</span>
+                  </a>
+
+                  <div className="text-center">
+                    <p className="text-sm text-muted-foreground">
+                      Perfect for interviews & freelance opportunities
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

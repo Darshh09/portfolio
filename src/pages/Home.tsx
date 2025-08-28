@@ -14,7 +14,7 @@ import LoadingScreen from '@/components/LoadingScreen';
 const HeroSection = lazy(() => import('@/components/HeroSection'));
 const AboutSection = lazy(() => import('@/components/AboutSection'));
 const ExperienceSection = lazy(() => import('@/components/ExperienceSection'));
-const ProjectsSection = lazy(() => import('@/components/ProjectsSection'));
+const ProjectsSection = lazy(() => import('@/components/projects/ProjectsSection'));
 const ContactSection = lazy(() => import('@/components/ContactSection'));
 const BlogSection = lazy(() => import('@/components/BlogSection'));
 const StackedCards = lazy(() => import('@/components/StackedCards'));

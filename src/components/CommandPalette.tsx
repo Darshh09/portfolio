@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Command, MagnifyingGlass, ArrowRight, Star } from 'phosphor-react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigation } from '../contexts/NavigationContext';
 
 interface CommandItem {
   id: string;
@@ -15,6 +17,9 @@ const CommandPalette = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { setIsCommandPaletteOpen } = useNavigation();
 
   const commands: CommandItem[] = [
     {
@@ -22,7 +27,14 @@ const CommandPalette = () => {
       title: 'Go to Home',
       description: 'Navigate to the main page',
       icon: '🏠',
-      action: () => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' }),
+      action: () => {
+        if (location.pathname !== '/') {
+          navigate('/');
+        } else {
+          // Scroll to top of home page
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      },
       category: 'navigation'
     },
     {
@@ -30,7 +42,55 @@ const CommandPalette = () => {
       title: 'About Me',
       description: 'Learn more about Darshit',
       icon: '👨‍💻',
-      action: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }),
+      action: () => {
+        if (location.pathname !== '/') {
+          // Store hash for post-navigation scroll
+          sessionStorage.setItem('scrollToHash', '#about');
+          navigate('/#about');
+        } else {
+          // If already on home page, scroll to section
+          const element = document.querySelector('#about');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      },
+      category: 'navigation'
+    },
+    {
+      id: 'experience',
+      title: 'Experience',
+      description: 'View my work experience',
+      icon: '💼',
+      action: () => {
+        if (location.pathname !== '/') {
+          sessionStorage.setItem('scrollToHash', '#experience');
+          navigate('/#experience');
+        } else {
+          const element = document.querySelector('#experience');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      },
+      category: 'navigation'
+    },
+    {
+      id: 'skills',
+      title: 'Skills',
+      description: 'See my technical skills',
+      icon: '⚡',
+      action: () => {
+        if (location.pathname !== '/') {
+          sessionStorage.setItem('scrollToHash', '#skills');
+          navigate('/#skills');
+        } else {
+          const element = document.querySelector('#skills');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      },
       category: 'navigation'
     },
     {
@@ -38,7 +98,25 @@ const CommandPalette = () => {
       title: 'View Projects',
       description: 'See my latest work',
       icon: '🚀',
-      action: () => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }),
+      action: () => navigate('/projects'),
+      category: 'navigation'
+    },
+    {
+      id: 'code-snippets',
+      title: 'Code Snippets',
+      description: 'Browse my code examples',
+      icon: '💻',
+      action: () => {
+        if (location.pathname !== '/') {
+          sessionStorage.setItem('scrollToHash', '#code-snippets');
+          navigate('/#code-snippets');
+        } else {
+          const element = document.querySelector('#code-snippets');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      },
       category: 'navigation'
     },
     {
@@ -46,7 +124,15 @@ const CommandPalette = () => {
       title: 'Read Blog',
       description: 'Check out my latest articles',
       icon: '📝',
-      action: () => window.location.href = '/blog',
+      action: () => navigate('/blog'),
+      category: 'navigation'
+    },
+    {
+      id: 'analytics',
+      title: 'Blog Analytics',
+      description: 'View blog statistics',
+      icon: '📊',
+      action: () => navigate('/blog/analytics'),
       category: 'navigation'
     },
     {
@@ -54,7 +140,17 @@ const CommandPalette = () => {
       title: 'Get in Touch',
       description: 'Send me a message',
       icon: '💬',
-      action: () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }),
+      action: () => {
+        if (location.pathname !== '/') {
+          sessionStorage.setItem('scrollToHash', '#contact');
+          navigate('/#contact');
+        } else {
+          const element = document.querySelector('#contact');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      },
       category: 'navigation'
     },
     {
@@ -62,7 +158,7 @@ const CommandPalette = () => {
       title: 'GitHub Profile',
       description: 'View my open source contributions',
       icon: '🐙',
-      action: () => window.open('https://github.com/yourusername', '_blank'),
+      action: () => window.open('https://github.com/Darshh09', '_blank'),
       category: 'social'
     },
     {
@@ -70,15 +166,38 @@ const CommandPalette = () => {
       title: 'LinkedIn Profile',
       description: 'Connect with me professionally',
       icon: '💼',
-      action: () => window.open('https://linkedin.com/in/yourusername', '_blank'),
+      action: () => window.open('https://www.linkedin.com/in/darshitshukla/', '_blank'),
       category: 'social'
+    },
+    {
+      id: 'resume',
+      title: 'Download Resume',
+      description: 'Get my professional resume',
+      icon: '📄',
+      action: () => {
+        const link = document.createElement('a');
+        link.href = '/resume.pdf';
+        link.download = 'Darshit_Resume.pdf';
+        link.click();
+      },
+      category: 'action'
     },
     {
       id: 'hire',
       title: 'Hire Me',
       description: 'Start a project together',
       icon: '✨',
-      action: () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }),
+      action: () => {
+        if (location.pathname !== '/') {
+          sessionStorage.setItem('scrollToHash', '#contact');
+          navigate('/#contact');
+        } else {
+          const element = document.querySelector('#contact');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      },
       category: 'action'
     }
   ];
@@ -108,8 +227,11 @@ const CommandPalette = () => {
     if (isOpen) {
       setQuery('');
       setSelectedIndex(0);
+      setIsCommandPaletteOpen(true);
+    } else {
+      setIsCommandPaletteOpen(false);
     }
-  }, [isOpen]);
+  }, [isOpen, setIsCommandPaletteOpen]);
 
   const handleSelect = (command: CommandItem) => {
     command.action();

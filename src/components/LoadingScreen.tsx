@@ -60,7 +60,9 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
         <h1 className="text-6xl md:text-8xl font-bold neon-text bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
           Darshit Shukla
         </h1>
-        <p className="text-lg text-muted-foreground mt-2 tracking-wider">Web Developer</p>
+        <p className="text-lg text-muted-foreground mt-2 tracking-wider">Co-founder of BrotherhoodBytes</p>
+        <p className="text-lg text-muted-foreground mt-1 tracking-wider">Founder of OpsSight</p>
+        <p className="text-lg text-muted-foreground mt-1 tracking-wider">Senior Full-Stack Developer</p>
       </div>
 
       {/* Progress Bar Container */}

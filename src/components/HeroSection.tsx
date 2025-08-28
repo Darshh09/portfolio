@@ -245,6 +245,17 @@ const HeroSection = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </a>
+
+            <a
+              href="/resume.pdf"
+              download="Darshit_Resume.pdf"
+              className="group inline-flex items-center px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-cyan-500/20 to-blue-600/20 text-cyan-300 hover:text-cyan-200 rounded-full font-medium text-base md:text-lg border border-cyan-400/30 hover:border-cyan-400/50 transition-all duration-300 hover:from-cyan-500/30 hover:to-blue-600/30 backdrop-blur-sm"
+            >
+              <svg className="mr-2 w-4 md:w-5 h-4 md:h-5 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <span>Download Resume</span>
+            </a>
           </motion.div>
         </div>
       </div>
