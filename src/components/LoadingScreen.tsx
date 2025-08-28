@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
-// Updated for Vercel deployment - Professional titles and resume integration
+// Updated for Vercel deployment - Professional titles and resume integration - Deployment #2
 
 interface LoadingScreenProps {
   onComplete: () => void;
