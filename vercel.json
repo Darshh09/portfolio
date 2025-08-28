@@ -1,12 +1,19 @@
 {
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/resume.pdf", "destination": "/resume.pdf" },
-    { "source": "/projects", "destination": "/index.html" },
-    { "source": "/projects/(.*)", "destination": "/index.html" },
-    { "source": "/blog", "destination": "/index.html" },
-    { "source": "/blog/(.*)", "destination": "/index.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    }
+  ],
+  "routes": [
+    { "src": "/resume.pdf", "dest": "/resume.pdf" },
+    { "src": "/projects", "dest": "/index.html" },
+    { "src": "/projects/(.*)", "dest": "/index.html" },
+    { "src": "/blog", "dest": "/index.html" },
+    { "src": "/blog/(.*)", "dest": "/index.html" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ],
   "headers": [
     {
@@ -39,19 +46,12 @@
       ]
     },
     {
-      "source": "/index.html",
+      "source": "/(.*)\\.html",
       "headers": [
-        { "key": "Cache-Control", "value": "no-store" }
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
       ]
     }
   ],
-  "functions": {
-    "api/**/*.{js,ts}": {
-      "runtime": "@vercel/node@18",
-      "memory": 1024,
-      "maxDuration": 10
-    }
-  },
   "env": {
     "NODE_VERSION": "18"
   }
