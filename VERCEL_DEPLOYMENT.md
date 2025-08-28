@@ -36,12 +36,22 @@ npm i -g vercel
 vercel --prod
 ```
 
+### **Step 1.5: Configure Custom Domain**
+1. **Add Domain**: In Vercel dashboard, go to your project settings
+2. **Domain**: Add `darshitdev.in` as your custom domain
+3. **DNS Configuration**: Update your domain provider's DNS settings:
+   - **Type**: CNAME
+   - **Name**: @ (or leave blank)
+   - **Value**: cname.vercel-dns.com
+4. **Verify**: Vercel will automatically verify your domain
+5. **SSL**: HTTPS will be automatically configured
+
 ### **Step 2: Verify Resume Download**
 After deployment, test these URLs:
-- `https://your-domain.vercel.app/resume.pdf` → Should download resume
-- `https://your-domain.vercel.app/` → Home page with download buttons
-- `https://your-domain.vercel.app/#about` → About section with resume
-- `https://your-domain.vercel.app/#contact` → Contact section with resume
+- `https://darshitdev.in/resume.pdf` → Should download resume
+- `https://darshitdev.in/` → Home page with download buttons
+- `https://darshitdev.in/#about` → About section with resume
+- `https://darshitdev.in/#contact` → Contact section with resume
 
 ### **Step 3: Test All Features**
 - [ ] Resume download from Hero section
@@ -140,16 +150,23 @@ After deployment, test these URLs:
 2. **Output directory**: Must be `dist`
 3. **Node version**: Vercel uses Node 18 (configured in vercel.json)
 
+### **Domain Issues**
+1. **DNS Propagation**: Can take up to 48 hours after DNS changes
+2. **CNAME Record**: Ensure it points to `cname.vercel-dns.com`
+3. **Domain Verification**: Check Vercel dashboard for verification status
+4. **SSL Certificate**: Should be automatically issued by Vercel
+5. **Domain Provider**: Make sure your domain provider supports CNAME records
+
 ## 🎉 Success Indicators
 
 ### **Resume Download Working**
-- ✅ Direct URL access: `/resume.pdf`
+- ✅ Direct URL access: `https://darshitdev.in/resume.pdf`
 - ✅ All download buttons functional
 - ✅ Command palette download working
 - ✅ File downloads with correct name: `Darshit_Resume.pdf`
 
 ### **Portfolio Fully Functional**
-- ✅ All routes working (`/`, `/projects`, `/blog`)
+- ✅ All routes working (`https://darshitdev.in/`, `/projects`, `/blog`)
 - ✅ Navigation highlighting working
 - ✅ Contact form functional
 - ✅ Social links working
@@ -166,9 +183,19 @@ After deployment, test these URLs:
 - [ ] Performance optimized
 - [ ] SEO meta tags working
 
+## 🌐 Domain-Specific Checklist
+
+- [ ] Domain `darshitdev.in` is active and working
+- [ ] HTTPS/SSL certificate is properly configured
+- [ ] Resume downloads from `https://darshitdev.in/resume.pdf`
+- [ ] All routes work with your domain (`https://darshitdev.in/projects`, etc.)
+- [ ] DNS propagation is complete (may take up to 48 hours)
+- [ ] Domain is verified in Vercel dashboard
+
 ## 🔗 Important URLs
 
-- **Resume**: `https://your-domain.vercel.app/resume.pdf`
+- **Portfolio**: https://darshitdev.in
+- **Resume**: https://darshitdev.in/resume.pdf
 - **GitHub**: https://github.com/Darshh09
 - **LinkedIn**: https://www.linkedin.com/in/darshitshukla/
 - **Email**: darshitshukla1777@gmail.com
