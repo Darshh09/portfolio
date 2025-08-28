@@ -45,6 +45,10 @@ npm run preview
 
 This project is configured for deployment on **Vercel**.
 
+### 🎯 Live Demo
+- **Portfolio**: [https://darshitdev.in](https://darshitdev.in)
+- **Resume Download**: [https://darshitdev.in/resume.pdf](https://darshitdev.in/resume.pdf)
+
 ### Vercel Configuration
 
 The project includes:
@@ -52,6 +56,7 @@ The project includes:
 - `.vercelignore` - Files to exclude from deployment
 - Client-side routing support for `/blog` routes
 - Security headers and caching optimization
+- Custom domain configuration for `darshitdev.in`
 
 ### Deploy to Vercel
 
