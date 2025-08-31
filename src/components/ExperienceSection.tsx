@@ -23,37 +23,43 @@ const ExperienceSection = () => {
 
   const experiences = [
     {
+      title: 'Senior Full-Stack Developer',
+      company: 'Quantel AI',
+      period: '2021 – Present',
+      location: 'Chennai (Hybrid)',
+      current: true,
+      employmentType: 'Full-time',
+      description:
+        'Engineering scalable fintech and AI-driven solutions while strengthening core product infrastructure and user experience.',
+      icon: Briefcase,
+      highlights: [
+        'Rebuilt apps in React/React Native → user retention +30%, onboarding time −20%',
+        'Migrated monolith to microservices (Flask/Django/Node) → deployment time −60%',
+        'Boosted test coverage to ~85% → reduced bug volume by 40%',
+        'Provisioned & optimized AWS infra: EC2, ECS, Kubernetes, ALB, Secrets Manager',
+        'Integrated Plaid SDK & analytics → 50% fewer setup steps, richer portfolio insights'
+      ],
+      featured: true,
+      color: 'from-slate-700 to-slate-900'
+    },
+    {
       title: 'Co-founder',
       company: 'BrotherhoodBytes',
-      period: '2023 - Present',
+      period: '2023 – Present',
       location: 'Remote',
-      description: 'Leading the development of innovative web applications and digital solutions. Managing client relationships, technical strategy, and team coordination.',
+      employmentType: 'Part-time',
+      description:
+        'Co-founding and scaling AI-driven SaaS products under BrotherhoodBytes, delivering end-to-end web solutions with a focus on SaaS intelligence and automation.',
       icon: Users,
-      highlights: ['Business development', 'Technical leadership', 'Client management', 'Team coordination', 'Product strategy'],
+      highlights: [
+        'Flagship product: OpsSight — AI-powered revenue intelligence dashboard (Next.js, Node.js, PostgreSQL, Stripe, OpenAI, Slack API)',
+        'Developed real-time dashboards, AI insights engine, and Slack/email alerts for churn & payment recovery',
+        'Simulated recovery of ₹50K/month in failed payments for SaaS pilot (mock data)',
+        'Built weekly investor reports with automated PDF generation and AI summaries',
+        'Led client discovery, product strategy, and engineering delivery with lean squads'
+      ],
       featured: true,
       color: 'from-purple-500 to-blue-500'
-    },
-    {
-      title: 'Freelancer',
-      company: 'Full-Stack Developer',
-      period: '2022 - Present',
-      location: 'Remote',
-      description: 'Delivering high-quality web applications and digital solutions for diverse clients. Specializing in modern web technologies and responsive design.',
-      icon: Code,
-      highlights: ['React/Next.js development', 'Node.js backend', 'Database design', 'API development', 'UI/UX implementation'],
-      featured: false,
-      color: 'from-blue-500 to-cyan-500'
-    },
-    {
-      title: 'Open Source Contributor',
-      company: 'GitHub',
-      period: '2021 - Present',
-      location: 'Global',
-      description: 'Contributing to open-source projects and sharing knowledge with the developer community. Building tools and libraries for the ecosystem.',
-      icon: GithubLogo,
-      highlights: ['Open source contributions', 'Community engagement', 'Tool development', 'Documentation', 'Code reviews'],
-      featured: false,
-      color: 'from-gray-600 to-gray-800'
     }
   ];
 

@@ -63,7 +63,6 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
           Darshit Shukla
         </h1>
         <p className="text-lg text-muted-foreground mt-2 tracking-wider">Co-founder of BrotherhoodBytes</p>
-        <p className="text-lg text-muted-foreground mt-1 tracking-wider">Founder of OpsSight</p>
         <p className="text-lg text-muted-foreground mt-1 tracking-wider">Senior Full-Stack Developer</p>
       </div>
 
