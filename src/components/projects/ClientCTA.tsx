@@ -161,7 +161,7 @@ export default function ClientCTA() {
             className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
           >
             <motion.a
-              href="/contact"
+              href="#about"
               className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500 px-8 py-4 text-lg font-semibold text-white shadow-2xl shadow-cyan-500/25 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/40 hover:scale-105"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
