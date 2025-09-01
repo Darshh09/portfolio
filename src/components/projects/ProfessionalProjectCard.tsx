@@ -219,11 +219,7 @@ export default function ProfessionalProjectCard({ project, index }: ProjectCardP
           {isConcept ? (
             <>
               <a
-<<<<<<< HEAD
-                href="#about"
-=======
                 href="/contact"
->>>>>>> 4c32745 (feat: Create professional projects section with OpsSight showcase and concept projects - Realistic portfolio for freelance clients)
                 className="group/btn flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 px-4 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/25 hover:scale-105"
               >
                 <Lightbulb size={16} className="transition-transform duration-300 group-hover/btn:scale-110" />
